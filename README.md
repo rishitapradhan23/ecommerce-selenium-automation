@@ -1,28 +1,24 @@
 # E-Commerce Selenium Automation Framework
 
-A Python-based web automation testing framework built using **Selenium WebDriver** and **Pytest**. The framework follows a structured Page Object Model (POM) approach to create maintainable, reusable, and scalable automated tests.
+A Python-based web automation testing framework using **Selenium WebDriver** and **Pytest**. The project is designed to automate web application test cases using a structured and maintainable framework.
 
 ## 🚀 Features
 
-* Automated web UI testing using Selenium WebDriver
+* Web UI automation using Selenium WebDriver
 * Pytest-based test execution
-* Page Object Model (POM)
+* Page Object Model (POM) structure
 * Reusable page classes and utilities
-* Configuration management
-* Test data management
-* Explicit waits for reliable test execution
-* Pytest fixtures for setup and teardown
-* HTML test reporting
-* Organized and maintainable project structure
+* Configuration and test-data management
+* Organized test cases
+* Maintainable project structure
 
 ## 🛠️ Technologies Used
 
 * **Python**
 * **Selenium WebDriver**
 * **Pytest**
-* **Pytest-HTML**
-* **WebDriver Manager**
-* **Git & GitHub**
+* **Git**
+* **GitHub**
 
 ## 📁 Project Structure
 
@@ -30,21 +26,11 @@ A Python-based web automation testing framework built using **Selenium WebDriver
 ecommerce-selenium-framework/
 │
 ├── .github/
-│
 ├── config/
-│   └── configuration files
-│
 ├── pages/
-│   └── Page Object classes
-│
 ├── testdata/
-│   └── Test data files
-│
 ├── tests/
-│   └── Automated test cases
-│
 ├── utils/
-│   └── Reusable utilities
 │
 ├── conftest.py
 ├── pytest.ini
@@ -55,31 +41,33 @@ ecommerce-selenium-framework/
 
 ## ⚙️ Installation
 
-Clone the repository:
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/rishitapradhan23/ecommerce-selenium-automation.git
 ```
 
-Navigate to the project directory:
+### 2. Navigate to the project directory
 
 ```bash
 cd ecommerce-selenium-automation
 ```
 
-Create a virtual environment:
+### 3. Create a virtual environment
 
 ```bash
 python -m venv .venv
 ```
 
-Activate the virtual environment on Windows:
+### 4. Activate the virtual environment
+
+For Windows:
 
 ```bash
 .venv\Scripts\activate
 ```
 
-Install the required dependencies:
+### 5. Install dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -99,73 +87,29 @@ Run tests with verbose output:
 pytest -v
 ```
 
-Generate an HTML report:
-
-```bash
-pytest --html=reports/report.html --self-contained-html
-```
-
 ## 🧪 Testing Approach
 
-The framework separates test logic from page interaction logic using the **Page Object Model**.
+The framework uses the **Page Object Model (POM)** to separate page interaction logic from test cases.
 
-This provides:
+This approach helps with:
 
-* Better code reusability
+* Code reusability
 * Easier maintenance
 * Reduced code duplication
-* Improved test readability
-* Easier expansion of the test suite
+* Better test organization
+* Improved readability
 
-## 📊 Test Reports
-
-Test execution can generate HTML reports containing:
-
-* Test execution status
-* Passed and failed test cases
-* Execution duration
-* Detailed test information
-
-## 🔧 Future Improvements
+## 🔮 Future Improvements
 
 * Add CI/CD integration using GitHub Actions
 * Add cross-browser testing
 * Add parallel test execution
-* Add screenshots for failed tests
-* Integrate advanced reporting such as Allure
-* Add data-driven testing
+* Add automated screenshots for failed tests
+* Add advanced test reporting
+* Expand data-driven testing
 
 ## 👩‍💻 Author
 
 **Rishita Pradhan**
 
-GitHub:
-https://github.com/rishitapradhan23
-
-````
-
-### Step 2 — Commit the README
-
-After replacing the content, scroll to the bottom.
-
-You'll see **Commit changes**.
-
-Use a message such as:
-
-```text
-Improve project README
-````
-
-Then click:
-
-**Commit changes**
-
-### Step 3 — Check GitHub
-
-Return to the repository's main page.
-
-Your new README should appear underneath the project files.
-
-**Important:** I included a few standard commands/features in the README, but before we claim things like HTML reporting or specific dependencies, we'll verify that your actual project contains them.
-
-After you've updated the README, tell me **“README updated”**. Then we'll check your actual project and make the README accurately match your implementation.
+GitHub: https://github.com/rishitapradhan23
