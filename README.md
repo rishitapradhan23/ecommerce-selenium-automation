@@ -1,98 +1,171 @@
-# E-Commerce Purchase Flow – Selenium WebDriver + Python (Capstone)
+# E-Commerce Selenium Automation Framework
 
-End-to-end UI automation of a customer buying a product on the public
-**[TutorialsNinja demo store](https://tutorialsninja.com/demo/)** (OpenCart).
-Built with **Selenium 4, Python, pytest, Page Object Model**, data-driven from **Excel + JSON**,
-with **screenshots** and a self-contained **HTML execution report**.
+A Python-based web automation testing framework built using **Selenium WebDriver** and **Pytest**. The framework follows a structured Page Object Model (POM) approach to create maintainable, reusable, and scalable automated tests.
 
-## Business scenario → automation mapping
+## 🚀 Features
 
-| # | Requirement | Where it is implemented |
-|---|-------------|-------------------------|
-| 1 | Launch browser | `driver` fixture in `conftest.py`, `utils/driver_factory.py` (Chrome / Firefox / Edge, headless option) |
-| 2 | Login | `pages/login_page.py`; a fresh account is created per test by the `registered_user` fixture |
-| 3 | Search product | `HomePage.search()` → `SearchResultsPage` |
-| 4 | Add to cart | `SearchResultsPage.add_to_cart()` |
-| 5 | Update quantity | `CartPage.update_quantity()` |
-| 6 | Verify cart details | assertions on presence, quantity, unit price × qty = line total, header cart count, grand total |
-| 7 | Screenshots | `snap` fixture → `reports/screenshots/` (auto-capture on failure too) |
-| 8 | Data from Excel / JSON | `testdata/products.xlsx` (products, quantities, Run flag) and `testdata/test_data.json` (user profile, negative-login data) |
-| 9 | Popups / alerts | `BasePage.handle_alert_if_present()` (native JS alerts) and `close_banners()` (HTML alert banners) |
-| 10 | Execution report | `reports/execution_report.html` (pytest-html, screenshots embedded) |
+* Automated web UI testing using Selenium WebDriver
+* Pytest-based test execution
+* Page Object Model (POM)
+* Reusable page classes and utilities
+* Configuration management
+* Test data management
+* Explicit waits for reliable test execution
+* Pytest fixtures for setup and teardown
+* HTML test reporting
+* Organized and maintainable project structure
 
-## Project structure
+## 🛠️ Technologies Used
 
-```
+* **Python**
+* **Selenium WebDriver**
+* **Pytest**
+* **Pytest-HTML**
+* **WebDriver Manager**
+* **Git & GitHub**
+
+## 📁 Project Structure
+
+```text
 ecommerce-selenium-framework/
-├── config/config.json          # base URL, browser, headless, timeouts
+│
+├── .github/
+│
+├── config/
+│   └── configuration files
+│
+├── pages/
+│   └── Page Object classes
+│
 ├── testdata/
-│   ├── products.xlsx           # data-driven scenarios (one row = one test)
-│   └── test_data.json          # user profile + negative login data
-├── pages/                      # Page Object Model
-│   ├── base_page.py            # waits, safe click, alert/popup handling
-│   ├── register_page.py  login_page.py  home_page.py
-│   ├── search_results_page.py  cart_page.py
-├── utils/                      # driver factory, Excel/JSON reader, screenshot, logger
-├── tests/test_purchase_flow.py # test scenarios
-├── conftest.py                 # fixtures + report hooks
-├── pytest.ini  requirements.txt
-├── reports/                    # HTML report + screenshots (generated)
-└── logs/execution.log          # run log (generated)
+│   └── Test data files
+│
+├── tests/
+│   └── Automated test cases
+│
+├── utils/
+│   └── Reusable utilities
+│
+├── conftest.py
+├── pytest.ini
+├── requirements.txt
+├── .gitignore
+└── README.md
 ```
 
-## Setup
+## ⚙️ Installation
 
-Requires Python 3.10+ and Google Chrome (Firefox / Edge also supported).
-Selenium 4.6+ downloads the matching driver automatically – no manual driver setup.
+Clone the repository:
 
 ```bash
-git clone <your-repo-url>
-cd ecommerce-selenium-framework
+git clone https://github.com/rishitapradhan23/ecommerce-selenium-automation.git
+```
+
+Navigate to the project directory:
+
+```bash
+cd ecommerce-selenium-automation
+```
+
+Create a virtual environment:
+
+```bash
 python -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
+```
+
+Activate the virtual environment on Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+Install the required dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
-## Run
+## ▶️ Running the Tests
+
+Run all tests:
 
 ```bash
-pytest                              # full run, headed Chrome (good for demos)
-pytest --headless                   # no browser window (CI)
-pytest --browser firefox            # other browsers: chrome | firefox | edge
-pytest -k TC01_MacBook              # a single Excel scenario
-pytest -m smoke                     # only tests marked smoke
+pytest
 ```
 
-Open **`reports/execution_report.html`** in a browser afterwards – it lists every test with
-its status, duration, log output and the embedded screenshots from each step.
+Run tests with verbose output:
 
-## Test data
+```bash
+pytest -v
+```
 
-* **Excel** – `testdata/products.xlsx`, sheet `Products`
+Generate an HTML report:
 
-  | TestCase ID | Run | Search Term | Product Name | Update Quantity |
-  |---|---|---|---|---|
-  | TC01_MacBook | Y | MacBook | MacBook | 3 |
+```bash
+pytest --html=reports/report.html --self-contained-html
+```
 
-  Add a row to add a test. Set `Run` to `N` to skip it. (`python -m utils.create_test_excel` regenerates the sample file.)
-* **JSON** – `testdata/test_data.json` holds the registration profile and the negative-login expectations.
-* **Config** – `config/config.json` (change `base_url` to point at another OpenCart-based demo).
+## 🧪 Testing Approach
 
-## Design notes
+The framework separates test logic from page interaction logic using the **Page Object Model**.
 
-* **Page Object Model** – locators and page behaviour live in `pages/`; tests read like the business flow.
-* **Explicit waits only** – no `time.sleep`; `WebDriverWait` + expected conditions everywhere.
-* **Test isolation** – each test registers its own unique user, so cart contents never leak between tests
-  or depend on other people using the public demo.
-* **Robust clicking** – scroll into view, JS-click fallback when an element is intercepted.
-* **Failure evidence** – a screenshot is captured automatically when a test fails and embedded in the report.
+This provides:
 
-## Troubleshooting
+* Better code reusability
+* Easier maintenance
+* Reduced code duplication
+* Improved test readability
+* Easier expansion of the test suite
 
-* *Timeouts / site slow* – the public demo can be slow; raise `explicit_wait` in `config/config.json`.
-* *Product not found in results* – the demo store data can be edited by others; check the exact name in `products.xlsx`.
-* *Products with required options* (e.g. Apple Cinema 30") cannot be added from the listing page – use simple products.
+## 📊 Test Reports
 
-## Author
+Test execution can generate HTML reports containing:
 
-Your Name · [LinkedIn](https://linkedin.com/in/your-profile) · [GitHub](https://github.com/your-username)
+* Test execution status
+* Passed and failed test cases
+* Execution duration
+* Detailed test information
+
+## 🔧 Future Improvements
+
+* Add CI/CD integration using GitHub Actions
+* Add cross-browser testing
+* Add parallel test execution
+* Add screenshots for failed tests
+* Integrate advanced reporting such as Allure
+* Add data-driven testing
+
+## 👩‍💻 Author
+
+**Rishita Pradhan**
+
+GitHub:
+https://github.com/rishitapradhan23
+
+````
+
+### Step 2 — Commit the README
+
+After replacing the content, scroll to the bottom.
+
+You'll see **Commit changes**.
+
+Use a message such as:
+
+```text
+Improve project README
+````
+
+Then click:
+
+**Commit changes**
+
+### Step 3 — Check GitHub
+
+Return to the repository's main page.
+
+Your new README should appear underneath the project files.
+
+**Important:** I included a few standard commands/features in the README, but before we claim things like HTML reporting or specific dependencies, we'll verify that your actual project contains them.
+
+After you've updated the README, tell me **“README updated”**. Then we'll check your actual project and make the README accurately match your implementation.
